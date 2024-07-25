@@ -7,8 +7,8 @@
     {% else %}
         {% for memo in memo_list %}
             <article>
-                <h2>{{memo.title}}</h2>
-                <p>{{memo.body}}</p>
+                <h2>{{memo[0]}}</h2>
+                <p>{{memo[1]}}</p>
             </article>
         {% endfor %}
     {% endif %}
