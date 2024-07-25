@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テストページ</title>
-</head>
-<body>
-    テストページです。
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>メモアプリ</h1>
+    {% if memo_list == [] %}
+        <p>メモはありません</p>
+    {% else %}
+        {% for memo in memo_list %}
+            <article>
+                <h2>{{memo.title}}</h2>
+                <p>{{memo.body}}</p>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
