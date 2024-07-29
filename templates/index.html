@@ -2,14 +2,24 @@
 
 {% block content %}
     <h1>メモアプリ</h1>
+    <a href="/regist" role="button">新規登録</a>
     {% if memo_list == [] %}
         <p>メモはありません</p>
     {% else %}
-        {% for memo in memo_list %}
-            <article>
-                <h2>{{memo[0]}}</h2>
-                <p>{{memo[1]}}</p>
-            </article>
-        {% endfor %}
+        <table border="1">
+            <tr>
+                <th>タイトル</th>
+                <th>メモ</th>
+                <th>更新日時</th>
+            </tr>
+            {% for memo in memo_list %}
+            <tr>
+                <td>{{memo[1]}}</td>
+                <td>{{memo[2]}}</td>
+                <td>{{memo[3]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
     {% endif %}
 {% endblock %}
