@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 
 from models import data
 
@@ -25,4 +25,5 @@ def regist():
         title = request.form.get("title")
         body = request.form.get("body")
         memo_db.insert_new_memo_data(title, body)
+        return redirect("/")
     return render_template("regist.html")
