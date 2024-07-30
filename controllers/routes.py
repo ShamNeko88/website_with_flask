@@ -19,6 +19,7 @@ def user(name=None):
     return render_template("user.html", name=name)
 
 
+# メモの登録
 @main.route("/regist", methods=["GET", "POST"])
 def regist():
     if request.method == "POST":
@@ -27,3 +28,10 @@ def regist():
         memo_db.insert_new_memo_data(title, body)
         return redirect("/")
     return render_template("regist.html")
+
+
+# メモの編集
+@main.route("/<id>/edit", methods=["GET", "POST"])
+def edit(id):
+    post = memo_db.get_memo_data(id)
+    return render_template("edit.html", post=post[0])

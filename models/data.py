@@ -34,6 +34,21 @@ class MemoManager():
         """
         self.db.execute_sql(sql)
 
+    # id指定でメモのデータを受け取る
+    def get_memo_data(self, id: int):
+        sql = f"""
+            SELECT
+                id,
+                title,
+                body
+            FROM
+                memo_data
+            WHERE
+                id = '{id}'
+        """
+        result = self.db.execute_sql(sql, get_result=True)
+        return result
+
 
 def insert_test_data():
     db = database_manager.ConnectSqlite3(DATABASE)
