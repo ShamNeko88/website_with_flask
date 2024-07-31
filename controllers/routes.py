@@ -40,3 +40,13 @@ def edit(id):
         return redirect("/")
     post = memo_db.get_memo_data(id)
     return render_template("edit.html", post=post[0])
+
+
+# メモを削除してメモ一覧に戻る
+@main.route("/<id>/delete", methods=["GET", "POST"])
+def delete(id):
+    if request.method == "POST":
+        memo_db.delete_memo_data(id)
+        return redirect("/")
+    post = memo_db.get_memo_data(id)
+    return render_template("delete.html", post=post[0])

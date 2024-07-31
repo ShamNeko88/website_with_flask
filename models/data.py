@@ -63,6 +63,16 @@ class MemoManager():
         """
         self.db.execute_sql(sql)
 
+    # id指定でメモの内容を削除する
+    def delete_memo_data(self, id: int):
+        sql = f"""
+            DELETE FROM
+                memo_data
+            WHERE
+                id = {id}
+        """
+        self.db.execute_sql(sql)
+
 
 def insert_test_data():
     db = database_manager.ConnectSqlite3(DATABASE)
