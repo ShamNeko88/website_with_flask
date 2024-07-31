@@ -49,6 +49,20 @@ class MemoManager():
         result = self.db.execute_sql(sql, get_result=True)
         return result
 
+    # id指定でメモの内容を編集する
+    def edit_memo_data(self, id: int, title: str, body: str):
+        sql = f"""
+            UPDATE
+                memo_data
+            SET
+                title = '{title}',
+                body = '{body}',
+                upd_date = DATETIME('now', 'localtime')
+            WHERE
+                id = {id}
+        """
+        self.db.execute_sql(sql)
+
 
 def insert_test_data():
     db = database_manager.ConnectSqlite3(DATABASE)
