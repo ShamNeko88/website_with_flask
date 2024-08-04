@@ -1,11 +1,36 @@
+import os
+
 from flask import Blueprint, render_template, request, redirect
+from flask_login import UserMixin, LoginManager
 
 from models import data
 
 main = Blueprint("main", __name__)
+main.secret_key = os.urandom(24)
+login_manager = LoginManager()
+login_manager.init_app(run.app)
 
 # メモデータ管理クラスのインスタンス生成
 memo_db = data.MemoManager()
+
+
+class User(UserMixin):
+    def __init__(self, user_id) -> None:
+        self.id = user_id
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
+
+@main.route("/login", methods=["GET", "POST"])
+def login():
+    error_message = ""
+    user_id = ""
+    return render_template(
+        "login.html", user_id=user_id, error_message=error_message
+    )
 
 
 @main.route("/")
