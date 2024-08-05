@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, UserMixin, login_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from models import data
 
@@ -20,6 +21,18 @@ class User(UserMixin):
 def logout():
     logout_user()
     return redirect("/login")
+
+
+@main.route("/signup", methods=["GET", "POST"])
+def signup():
+    error_message = ""
+    if request.method == "POST":
+        id = request.form.get("user_id")
+        password = request.form.get("password")
+        hashed_password = generate_password_hash(password)
+        memo_db.insert_new_user(id, hashed_password)
+        return redirect("/login")
+    return render_template("signup.html", error_message=error_message)
 
 
 @main.route("/login", methods=["GET", "POST"])

@@ -10,10 +10,13 @@ class MemoManager():
     Methods:
         insert_new_memo_data: 新しいメモを追加
         get_all_memo_data: 全てのメモデータを取得
+        get_memo_data: メモデータをID指定で受け取る
+        edit_memo_data: メモデータをID指定で編集する
     """
     def __init__(self):
         self.db = database_manager.ConnectSqlite3(DATABASE)
 
+    # 新しいメモを追加
     def get_all_memo_data(self) -> list:
         sql = "SELECT * FROM memo_data"
         result: list = self.db.execute_sql(sql, get_result=True)
@@ -72,6 +75,26 @@ class MemoManager():
                 id = {id}
         """
         self.db.execute_sql(sql)
+
+    # ユーザーの新規作成
+    def insert_new_user(self, id, hashed_password):
+        sql = f"""
+            INSERT INTO user_data(
+                id,
+                password,
+                upd_date
+            )
+            VALUES(
+                '{id}',
+                '{hashed_password}',
+                DATETIME('now', 'localtime')
+            )
+        """
+        self.db.execute_sql(sql)
+
+    # ログイン時のパスワード検証
+    def get_user_data(self, id):
+        pass
 
 
 def insert_test_data():
