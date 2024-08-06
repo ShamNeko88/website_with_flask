@@ -29,9 +29,12 @@ def signup():
     if request.method == "POST":
         id = request.form.get("user_id")
         password = request.form.get("password")
-        hashed_password = generate_password_hash(password)
-        memo_db.insert_new_user(id, hashed_password)
-        return redirect("/login")
+        if memo_db.get_user(id)[0][0] == id:
+            error_message = "既に存在するユーザーです"
+        else:
+            hashed_password = generate_password_hash(password)
+            memo_db.insert_new_user(id, hashed_password)
+            return redirect("/login")
     return render_template("signup.html", error_message=error_message)
 
 

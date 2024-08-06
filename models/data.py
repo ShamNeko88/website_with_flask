@@ -92,6 +92,19 @@ class MemoManager():
         """
         self.db.execute_sql(sql)
 
+    # id指定して抽出
+    def get_user(self, id):
+        sql = (
+            f"SELECT          "
+            f"    id          "
+            f"FROM            "
+            f"    user_data   "
+            f"WHERE           "
+            f"    id = '{id}' "
+        )
+        result = self.db.execute_sql(sql, get_result=True)
+        return result
+
     # ログイン時のパスワード検証
     def get_user_data(self, id):
         pass
