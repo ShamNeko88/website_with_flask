@@ -46,12 +46,14 @@ def login():
     if request.method == "POST":
         user_id = request.form.get("user_id")
         password = request.form.get("password")
-        if (user_id == "admin" and password == "admin"):
-            user = User(user_id)
-            login_user(user)
-            return redirect("/")
-        else:
-            error_message = "入力されたIDもしくはパスワードが正しくありません"
+        # ログインチェック
+        user_data = memo_db.get_user_password(user_id)
+        if user_data != []:
+            if check_password_hash(user_data[0][0], password):
+                user = User(user_id)
+                login_user(user)
+                return redirect("/")
+    error_message = "入力されたIDもしくはパスワードが正しくありません"
     return render_template(
         "login.html", user_id=user_id, error_message=error_message
     )

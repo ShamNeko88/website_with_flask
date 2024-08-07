@@ -106,8 +106,17 @@ class MemoManager():
         return result
 
     # ログイン時のパスワード検証
-    def get_user_data(self, id):
-        pass
+    def get_user_password(self, id):
+        sql = (
+            f"SELECT          "
+            f"    password    "
+            f"FROM            "
+            f"    user_data   "
+            f"WHERE           "
+            f"    id = '{id}' "
+        )
+        result = self.db.execute_sql(sql, get_result=True)
+        return result
 
 
 def insert_test_data():
