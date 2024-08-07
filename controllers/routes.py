@@ -29,7 +29,7 @@ def signup():
     if request.method == "POST":
         id = request.form.get("user_id")
         password = request.form.get("password")
-        if memo_db.get_user(id)[0][0] == id:
+        if memo_db.get_user(id) != []:
             error_message = "既に存在するユーザーです"
         else:
             hashed_password = generate_password_hash(password)
@@ -53,7 +53,7 @@ def login():
                 user = User(user_id)
                 login_user(user)
                 return redirect("/")
-    error_message = "入力されたIDもしくはパスワードが正しくありません"
+        error_message = "入力されたIDもしくはパスワードが正しくありません"
     return render_template(
         "login.html", user_id=user_id, error_message=error_message
     )
